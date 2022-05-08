@@ -20,6 +20,13 @@ module.exports = class File {
         return true;
     }
 
+    #file_exist(file_name){
+        if(!fs.existsSync(this.file_path+'/'+file_name)){
+            return false;
+        }
+        return true;
+    }
+
     #path_access(){
         if(!fs.accessSync(this.file_path, fs.constants.R_OK)){
             return false;
@@ -79,5 +86,16 @@ module.exports = class File {
             });
         }
         return result;
+    }
+
+    delete(file_name){
+        if(!this.#primary_check()){
+            return false;
+        }
+        if(!this.#file_exist(file_name)){
+            return false;
+        }
+        fs.unlinkSync(this.file_path + '/' + file_name);
+        return true;
     }
 }
