@@ -42,8 +42,7 @@ module.exports = class File {
         return false;
     }
 
-
-    create_file(file_name){
+    #primary_check(){
         if(!this.#path_exist(this.file_path)){
             return false;
         }
@@ -53,7 +52,32 @@ module.exports = class File {
         if(this.#path_is_file(this.file_path)){
             return false;
         }
+        return true;
+    }
+
+
+    create(file_name){
+        if(!this.#primary_check()){
+            return false;
+        }
         fs.writeFileSync(this.file_path + '/' + file_name, '');
         return true;
+    }
+
+    list(){
+        if(!this.#primary_check()){
+            return false;
+        }
+        let result = [];
+        let files = fs.readdirSync(this.file_path);
+        for(let file of files){
+            let {size,birthtime} = fs.lstatSync(this.file_path + '/' + file);
+            result.push({
+                name: file,
+                size: size,
+                birthtime: birthtime
+            });
+        }
+        return result;
     }
 }
