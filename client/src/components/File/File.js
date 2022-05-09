@@ -16,6 +16,30 @@ const File = ({name,size,birthtime}) =>{
         }
         return `${day}/${month}/${year}`;
     }
+    function formatSize(size){
+        let check = true;
+        let c = 0; 
+        let newSize = size;
+        let dim = 'B';
+        while(check){
+            if(getlength(newSize)>3){
+                c++;
+                newSize = Math.trunc(newSize/1024);
+                console.log(newSize);
+            }else{
+                check=false;
+            }
+        }
+        if(c == 1){
+            dim = 'KB';
+        }else if(c==2){
+            dim = 'MB';
+        }
+        return newSize + ' ' + dim;
+    }
+    function getlength(number) {
+        return number.toString().length;
+    }
 
     return(
         <div className='File'>
@@ -23,7 +47,7 @@ const File = ({name,size,birthtime}) =>{
                 {name}
             </div>
             <div className='file-size'>
-                {size} B
+                {formatSize(size)}
             </div>
             <div className='file-date'>
                 Creation date: {formatDate(birthtime)}
