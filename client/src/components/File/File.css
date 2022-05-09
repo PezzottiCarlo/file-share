@@ -1,13 +1,42 @@
-.file-container{
+.File{
+    min-height: 3rem;
     display: flex;
     flex-direction: row;
     width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+}
+
+.File:hover{
+    background-color: rgba(0,0,0,0.1);
 }
 
 .file-title{
-
+    width: 40%;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
-.file-data{
-
+.file-size{
+    width: 20%;
+}
+.file-date{
+    width: 20%;
+}
+.file-option{
+    width: 20%;
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+.file-download:hover{
+    font-size: 1.5rem;
+    transition: all 0.2s;
+}
+.file-trash:hover{
+    font-size: 1.5rem;
+    transition: all 0.2s;
 }

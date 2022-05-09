@@ -3,4 +3,10 @@
   height: 100vh;
   background-color: var(--primary-color);
   color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.file-list{
+  width: 75%;
 }

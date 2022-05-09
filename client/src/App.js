@@ -14,11 +14,13 @@ function App() {
   },[])
   return (
     <div className='App'>
-      {
-        files.map(file => {
-          return <File name={file.name} size={file.size} birthtime={file.birthtime}/>
-        })
-      }
+      <div className='file-list'>
+        {
+          files.map(file => {
+            return <File name={file.name} size={file.size} birthtime={file.birthtime}/>
+          })
+        }
+      </div>
     </div>
   );
 }
