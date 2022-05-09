@@ -15,9 +15,10 @@ app.get('/list', (req, res) => {
 })
 
 app.get('/download/:filename',(req,res)=>{
-    let file = file.getFilePath(req.params.filename);
-    if(!file) return res.status(404).send('File not found');
-    return res.download(file);
+    let file_name = req.params.filename;
+    let file_path = file.getFilePath(file_name);
+    if(!file_path) return res.status(404).send('File not found');
+    return res.download(file_path);
 })
 
 app.post('/delete', (req, res) => {
