@@ -43,20 +43,15 @@ const File = ({name,size,birthtime}) =>{
 
     return(
         <div className='File'>
-            <div className='file-title'>
-                {name}
-            </div>
-            <div className='file-size'>
-                {formatSize(size)}
-            </div>
-            <div className='file-date'>
-                Creation date: {formatDate(birthtime)}
-            </div>
-            <div className='file-option'>
-                <div className='file-download'>
+            <div className='file-title file-element big'>{name}</div>
+            <div className='file-size file-element small'> {formatSize(size)}</div> 
+            <div className='file-date file-element medium'> Creation date: {formatDate(birthtime)}</div>
+
+            <div className='file-option file-element small'>
+                <div className='file-download icon'>
                     <HiDownload/>
                 </div>
-                <div className='file-trash'>
+                <div className='file-trash icon'>
                     <HiTrash/>
                 </div>
             </div>

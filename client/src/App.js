@@ -17,7 +17,11 @@ function App() {
       <div className='file-list'>
         {
           files.map(file => {
-            return <File name={file.name} size={file.size} birthtime={file.birthtime}/>
+            return (
+            <div className='file-container'>
+              <File name={file.name} size={file.size} birthtime={file.birthtime}/>
+            </div>
+            )
           })
         }
       </div>

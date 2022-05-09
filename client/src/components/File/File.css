@@ -1,48 +1,54 @@
 .File{
+    height: 4rem;
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: center;
-    align-items: center;
     border-radius: 0.5rem;
-    padding: 2rem 0;
+    background-color: hsla(0,0%,100%,.05);
 }
 
-.File:hover{
-    background-color: rgba(0,0,0,0.1);
+.file-element{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    height: 100%;
 }
 
 .file-title{
-    width: 40%;
     font-size: 1.2rem;
-    font-weight: bold;
     margin-left: 1rem;
 }
 
-.file-size{
-    width: 20%;
+.big{
+    font-weight: bold;
 }
-.file-date{
-    width: 20%;
+
+.medium{
+    width:25% !important;
 }
+
+.small{
+    width:10% !important;
+}
+
 .file-option{
-    width: 20%;
-    font-size: 1.3rem;
+    margin-right: 1rem;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon{
+    height: 100%;
+    cursor: pointer;
+    font-size: 2rem;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: center;
 }
 
-.file-option:last-child{
-    margin-right: 1rem;
-}
-
-.file-download:hover{
-    font-size: 1.5rem;
-    transition: all 0.2s;
-}
-.file-trash:hover{
-    font-size: 1.5rem;
-    transition: all 0.2s;
+.icon:hover{
+    background-color: hsla(0,0%,100%,.1);
 }
