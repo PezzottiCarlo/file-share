@@ -13,7 +13,7 @@ function App() {
     fetchList();
   },[])
   return (
-    <div>
+    <div className='App'>
       {
         files.map(file => {
           return <File name={file.name} size={file.size} birthtime={file.birthtime}/>
