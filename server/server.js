@@ -11,5 +11,12 @@ app.listen(config.port,"0.0.0.0", () => {
 })
 
 app.get('/list', (req, res) => {
-    res.send(file.list());
+    res.json(file.list());
+})
+app.post('/delete', (req, res) => {
+    let {file_name} = req.body;
+    if(file.delete(file_name)){
+        return res.json({success: true});
+    }
+    return res.json({success: false,message: 'File not found'});
 })
