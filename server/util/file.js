@@ -58,7 +58,7 @@ module.exports = class File {
         return true;
     }
 
-    getFilePath(file_name){
+    pgetFilePath(file_name){
         if(!this.#file_exist(file_name)){
             return false;
         }
