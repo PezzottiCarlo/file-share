@@ -58,6 +58,13 @@ module.exports = class File {
         return true;
     }
 
+    getFilePath(file_name){
+        if(!this.#file_exist(file_name)){
+            return false;
+        }
+        return this.file_path + '/' + file_name;
+    }
+
     list(){
         if(!this.#primary_check()){
             return false;
