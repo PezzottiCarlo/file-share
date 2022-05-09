@@ -28,3 +28,7 @@ app.post('/delete', (req, res) => {
     }
     return res.json({success: false,message: 'File not found'});
 })
+
+app.post('/upload', (req, res) => {
+    
+})
