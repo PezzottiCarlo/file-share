@@ -13,6 +13,7 @@ app.listen(config.port,"0.0.0.0", () => {
 app.get('/list', (req, res) => {
     res.json(file.list());
 })
+
 app.post('/delete', (req, res) => {
     let {file_name} = req.body;
     if(file.delete(file_name)){
