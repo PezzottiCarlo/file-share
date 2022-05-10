@@ -50,11 +50,11 @@ module.exports = class File {
     }
 
 
-    create(file_name){
+    create(file_name,buffer){
         if(!this.#primary_check()){
             return false;
         }
-        fs.writeFileSync(this.file_path + '/' + file_name, '');
+        fs.writeFileSync(this.file_path + '/' + file_name, buffer);
         return true;
     }
 
