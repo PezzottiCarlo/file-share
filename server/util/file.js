@@ -49,6 +49,10 @@ module.exports = class File {
     return true;
   }
 
+  security_check(file_name) {
+    return !(file_name.includes("..") || file_name.includes("/") || file_name.includes("\\") || file_name.includes("%"))
+  }
+
   create(file_name, buffer) {
     if (!this.#primary_check()) {
       return false;
