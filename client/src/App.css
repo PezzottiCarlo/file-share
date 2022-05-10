@@ -8,13 +8,13 @@
   align-items: center;
   justify-content: center;
 }
-.app-component{
+.app-component {
   width: 75%;
 }
-.file-list{
+.file-list {
   height: 50%;
   overflow-y: scroll;
 }
-.file-container{
+.file-container {
   margin-bottom: 1rem;
 }
