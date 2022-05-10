@@ -17,12 +17,7 @@ app.get("/list", (req, res) => {
 
 app.get("/download/:filename", (req, res) => {
   let file_name = req.params.filename;
-  if (
-    file_name.includes("..") ||
-    file_name.includes("/") ||
-    file_name.includes("\\") ||
-    file_name.includes("%")
-  ) {
+  if (!filem.security_check(file_name)) {
     res.status(400).json({ error: "Invalid file name" });
   }
   let file_path = filem.getFilePath(file_name);
@@ -45,7 +40,7 @@ app.post("/upload", upload.array("files"), (req, res) => {
   if (!req.files) return res.status(400).send("No files were uploaded.");
   req.files.forEach((file) => {
     if (!filem.security_check(file.originalname)) {
-      return res.status(400).json({ error: "Invalid file name" })
+      return res.status(400).json({ error: "Invalid file name" });
     }
     if (!filem.create(file.originalname, file.buffer)) {
       return res.json({ success: false, message: "Error creating file" });
