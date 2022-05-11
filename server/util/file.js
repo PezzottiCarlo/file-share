@@ -17,7 +17,7 @@ module.exports = class File {
     this.#create_associatation_file("associations.json");
     let files = this.list();
     for (let file of files) {
-      this.#create_associatation(this.#get_random_name(),file.name);
+      this.#create_associatation(file.name);
     }
   }
 
@@ -73,7 +73,7 @@ module.exports = class File {
     return associations;
   }
 
-  #get_associations(file_id) {
+  #get_file_name(file_id) {
     let associations = this.#get_associations();
     if (!associations[file_id]) {
       return false;
@@ -81,8 +81,19 @@ module.exports = class File {
     return associations[file_id];
   }
 
-  #create_associatation(index, file_name) {
+  #get_file_id(file_name) {
     let associations = this.#get_associations();
+    for (let key in associations) {
+      if (associations[key] === file_name) {
+        return key;
+      }
+    }
+    return false;
+  }
+
+  #create_associatation(file_name) {
+    let associations = this.#get_associations();
+    let index = this.#get_random_name();
     associations[index] = file_name;
     fs.writeFileSync("associations.json", JSON.stringify(associations));
     return index;
@@ -102,15 +113,19 @@ module.exports = class File {
       return false;
     }
     fs.writeFileSync(this.file_path + "/" + file_name, buffer);
-    return this.#create_associatation(this.#get_random_name(),file_name);
+    let file_id = this.#get_file_id(file_name);
+    console.log(file_id);
+    if(!file_id)
+      return this.#create_associatation(file_name);
+    return file_id;
   }
 
   getFilePath(file_id) {
-    let file_name = this.#get_associations(file_id);
-    if (file_name) {
+    let file_name = this.#get_file_name(file_id);
+    if (!file_name) {
       return false;
     }
-    return this.file_path + "/" + associations[file_id];
+    return this.file_path + "/" + file_name;
   }
 
   list() {
@@ -125,13 +140,14 @@ module.exports = class File {
         name: file,
         size: size,
         birthtime: birthtime,
+        id: this.#get_file_id(file)
       });
     }
     return result;
   }
 
   delete(file_id) {
-    let file_name = this.#get_associations(file_id);
+    let file_name = this.#get_file_name(file_id);
     if (!this.#file_exist(file_name)) {
       return false;
     }
