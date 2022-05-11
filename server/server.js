@@ -9,7 +9,6 @@ app.use(express.json());
 
 app.listen(config.port, "0.0.0.0", () => {
   console.log("Server is running on port " + config.port);
-  filem.create("adriano.txt", "adriano");
 });
 
 app.get("/list", (req, res) => {

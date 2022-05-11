@@ -114,7 +114,6 @@ module.exports = class File {
     }
     fs.writeFileSync(this.file_path + "/" + file_name, buffer);
     let file_id = this.#get_file_id(file_name);
-    console.log(file_id);
     if(!file_id)
       return this.#create_associatation(file_name);
     return file_id;
