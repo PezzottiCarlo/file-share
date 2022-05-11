@@ -73,8 +73,15 @@ module.exports = class File {
     return associations;
   }
 
+  #get_associations(file_id) {
+    let associations = this.#get_associations();
+    if (!associations[file_id]) {
+      return false;
+    }
+    return associations[file_id];
+  }
+
   #create_associatation(index, file_name) {
-    console.log(index, file_name);
     let associations = this.#get_associations();
     associations[index] = file_name;
     fs.writeFileSync("associations.json", JSON.stringify(associations));
@@ -99,9 +106,8 @@ module.exports = class File {
   }
 
   getFilePath(file_id) {
-    let associations = this.#get_associations();
-    console.log(file_id,associations[file_id]);
-    if (!associations[file_id]) {
+    let file_name = this.#get_associations(file_id);
+    if (file_name) {
       return false;
     }
     return this.file_path + "/" + associations[file_id];
@@ -124,10 +130,8 @@ module.exports = class File {
     return result;
   }
 
-  delete(file_name) {
-    if (!this.#primary_check()) {
-      return false;
-    }
+  delete(file_id) {
+    let file_name = this.#get_associations(file_id);
     if (!this.#file_exist(file_name)) {
       return false;
     }
