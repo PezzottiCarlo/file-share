@@ -1,4 +1,6 @@
 const fs = require("fs");
+const nanoid = require("nanoid");
+
 module.exports = class File {
   constructor(file_path) {
     this.file_path = file_path;
@@ -7,6 +9,15 @@ module.exports = class File {
     }
     if (this.#path_is_file(file_path)) {
       throw new Error("File path is a file");
+    }
+    this.#init();
+  }
+
+  #init() {
+    this.#create_associatation_file("associations.json");
+    let files = this.list();
+    for (let file of files) {
+      this.#create_associatation(this.#get_random_name(),file.name);
     }
   }
 
@@ -49,8 +60,34 @@ module.exports = class File {
     return true;
   }
 
+  #get_random_name() {
+    return nanoid.nanoid(5);
+  }
+
+  #create_associatation_file(file_name) {
+    fs.writeFileSync(file_name, JSON.stringify({}));
+  }
+
+  #get_associations() {
+    let associations = JSON.parse(fs.readFileSync("associations.json", "utf8"));
+    return associations;
+  }
+
+  #create_associatation(index, file_name) {
+    console.log(index, file_name);
+    let associations = this.#get_associations();
+    associations[index] = file_name;
+    fs.writeFileSync("associations.json", JSON.stringify(associations));
+    return index;
+  }
+
   security_check(file_name) {
-    return !(file_name.includes("..") || file_name.includes("/") || file_name.includes("\\") || file_name.includes("%"))
+    return !(
+      file_name.includes("..") ||
+      file_name.includes("/") ||
+      file_name.includes("\\") ||
+      file_name.includes("%")
+    );
   }
 
   create(file_name, buffer) {
@@ -58,10 +95,10 @@ module.exports = class File {
       return false;
     }
     fs.writeFileSync(this.file_path + "/" + file_name, buffer);
-    return true;
+    return this.#create_associatation(this.#get_random_name(),file_name);
   }
 
-  pgetFilePath(file_name) {
+  getFilePath(file_name) {
     if (!this.#file_exist(file_name)) {
       return false;
     }
