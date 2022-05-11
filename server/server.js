@@ -15,22 +15,16 @@ app.get("/list", (req, res) => {
   res.json(filem.list());
 });
 
-app.get("/download/:filename", (req, res) => {
-  let file_name = req.params.filename;
-  if (!filem.security_check(file_name)) {
-    res.status(400).json({ error: "Invalid file name" });
-  }
-  let file_path = filem.getFilePath(file_name);
+app.get("/download/:fileid", (req, res) => {
+  let file_id = req.params.fileid;
+  let file_path = filem.getFilePath(file_id);
   if (!file_path) return res.status(404).send("File not found");
   return res.download(file_path);
 });
 
 app.post("/delete", (req, res) => {
-  let { file_name } = req.body;
-  if (!filem.security_check(file_name)) {
-    return res.status(400).json({ error: "Invalid file name" });
-  }
-  if (filem.delete(file_name)) {
+  let { file_id } = req.body;
+  if (filem.delete(file_id)) {
     return res.json({ success: true });
   }
   return res.json({ success: false, message: "File not found" });

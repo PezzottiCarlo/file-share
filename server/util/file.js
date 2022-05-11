@@ -98,11 +98,13 @@ module.exports = class File {
     return this.#create_associatation(this.#get_random_name(),file_name);
   }
 
-  getFilePath(file_name) {
-    if (!this.#file_exist(file_name)) {
+  getFilePath(file_id) {
+    let associations = this.#get_associations();
+    console.log(file_id,associations[file_id]);
+    if (!associations[file_id]) {
       return false;
     }
-    return this.file_path + "/" + file_name;
+    return this.file_path + "/" + associations[file_id];
   }
 
   list() {
